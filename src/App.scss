@@ -1,0 +1,105 @@
+$bp-sm: 600px;
+$bp-md: 900px;
+$bp-lg: 1200px;
+
+// App style
+.app__container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// Navbar Style
+.nav__container {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+
+  @media only screen and (max-width: $bp-sm) {
+    flex-direction: column;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    img {
+      width: 150px;
+    }
+
+    @media only screen and (max-width: $bp-sm) {
+      img {
+        width: 100px;
+      }
+      h1 {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &__links {
+    margin-left: auto;
+    a {
+      text-decoration: none;
+      margin: 0 0.2rem;
+
+      &:hover {
+        text-decoration: underline;
+        transition: all 0.3s ease;
+      }
+    }
+    @media only screen and (max-width: $bp-sm) {
+      margin-left: unset;
+      a {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// Articles List Style
+.articles__container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media only screen and (max-width: $bp-sm) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.overlay {
+  background-color: #ffffff;
+  filter: blur(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+// Articles List Item Style
+.articleItem__container {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #121212;
+  margin: 1rem;
+  padding: 0.5rem;
+  list-style-type: none;
+
+  @media only screen and (max-width: $bp-sm) {
+    height: 150px;
+    width: 250px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #03a9f4;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+}
