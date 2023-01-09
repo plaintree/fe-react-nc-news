@@ -62,12 +62,22 @@ $bp-lg: 1200px;
   flex-wrap: wrap;
   padding: 0 2rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media only screen and (max-width: $bp-sm) {
     flex-direction: column;
     align-items: center;
   }
+}
+
+.overlay {
+  background-color: #ffffff;
+  filter: blur(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 // Articles List Item Style
@@ -77,6 +87,7 @@ $bp-lg: 1200px;
   border: 1px solid #121212;
   margin: 1rem;
   padding: 0.5rem;
+  list-style-type: none;
 
   @media only screen and (max-width: $bp-sm) {
     height: 150px;
@@ -86,5 +97,9 @@ $bp-lg: 1200px;
   a {
     text-decoration: none;
     color: #03a9f4;
+  }
+
+  h2 {
+    font-size: 1rem;
   }
 }

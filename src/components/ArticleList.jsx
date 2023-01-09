@@ -14,12 +14,19 @@ const ArticleList = () => {
     });
   }, []);
   return (
-    <div className="articles__container">
-      {isLoading && <SyncLoader className="spinner" />}
-      {articles.map((article) => (
-        <ArticleListItem key={article.article_id} article={article} />
-      ))}
-    </div>
+    <section>
+      {isLoading ? (
+        <div className="overlay">
+          <SyncLoader className="spinner" />
+        </div>
+      ) : (
+        <ul className="articles__container">
+          {articles.map((article) => (
+            <ArticleListItem key={article.article_id} article={article} />
+          ))}
+        </ul>
+      )}
+    </section>
   );
 };
 export default ArticleList;
