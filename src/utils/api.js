@@ -19,8 +19,22 @@ export const getArticleCommentbyId = async (articleId) => {
   return res.data.comments;
 };
 
+export const getUsers = async () => {
+  const res = await baseApi.get("/users");
+  return res.data.users;
+};
+
 export const patchArticleVote = async (articleId, vote) => {
   const patchBody = { inc_votes: vote };
   const res = await baseApi.patch(`/articles/${articleId}`, patchBody);
   return res.data.article;
+};
+
+export const postArticleComment = async (articleId, username, comment) => {
+  const postBody = {
+    username,
+    body: comment,
+  };
+  const res = await baseApi.post(`/articles/${articleId}/comments`, postBody);
+  return res.data.comment;
 };

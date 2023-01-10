@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
-import SyncLoader from "react-spinners/SyncLoader";
 import ArticleListItem from "./ArticleListItem";
+import Overlay from "./Overlay";
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
@@ -16,9 +16,7 @@ const ArticleList = () => {
   return (
     <section>
       {isLoading ? (
-        <div className="overlay">
-          <SyncLoader className="spinner" />
-        </div>
+        <Overlay />
       ) : (
         <ul className="articles__container">
           {articles.map((article) => (
