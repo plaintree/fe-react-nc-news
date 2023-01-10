@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import SyncLoader from "react-spinners/SyncLoader";
 import { getArticles } from "../utils/api";
+import SyncLoader from "react-spinners/SyncLoader";
 import ArticleListItem from "./ArticleListItem";
 
 const ArticleList = () => {

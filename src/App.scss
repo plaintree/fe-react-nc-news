@@ -1,6 +1,14 @@
 $bp-sm: 600px;
 $bp-md: 900px;
 $bp-lg: 1200px;
+$grey-50: #fafafa;
+$grey-100: #f5f5f5;
+$grey-400: #bdbdbd;
+$grey-600: #757575;
+$grey-900: #212121;
+$lightblue-400: #29b6f6;
+$lightblue-500: #03a9f4;
+$lightblue-600: #039be5;
 
 // App style
 .app__container {
@@ -9,14 +17,44 @@ $bp-lg: 1200px;
   flex-direction: column;
 }
 
+// Loading style
+.overlay {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+// Home Style
+.home__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 500px;
+  }
+
+  @media only screen and (max-width: $bp-sm) {
+    img {
+      width: 300px;
+    }
+  }
+}
+
 // Navbar Style
 .nav__container {
   display: flex;
   align-items: center;
   padding: 0 2rem;
+  background-color: $grey-100;
 
   @media only screen and (max-width: $bp-sm) {
     flex-direction: column;
+    padding: 0.5rem 2rem;
   }
 
   &__logo {
@@ -70,21 +108,12 @@ $bp-lg: 1200px;
   }
 }
 
-.overlay {
-  background-color: #ffffff;
-  filter: blur(1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-}
-
 // Articles List Item Style
 .articleItem__container {
   width: 200px;
   height: 200px;
   border: 1px solid #121212;
+  border-radius: 5px;
   margin: 1rem;
   padding: 0.5rem;
   list-style-type: none;
@@ -96,10 +125,127 @@ $bp-lg: 1200px;
 
   a {
     text-decoration: none;
-    color: #03a9f4;
+    color: $lightblue-500;
   }
 
   h2 {
     font-size: 1rem;
+  }
+}
+
+// Articles Detail Style
+@mixin detailContainerBP {
+  border-radius: 10px;
+  border: $grey-900 solid 1px;
+  margin: 0.5rem 3rem;
+  padding: 1rem;
+
+  @media only screen and (max-width: $bp-sm) {
+    margin: 0.5rem 0;
+  }
+}
+
+.articleDetail__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  &__main {
+    @include detailContainerBP();
+
+    h1 {
+      font-weight: 700;
+    }
+    span {
+      color: $grey-400;
+      font-size: 0.7rem;
+    }
+    p {
+      line-height: 1.5;
+    }
+
+    .toggle__comment__btn {
+      background-color: #ffffff;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      color: $grey-600;
+      padding: 0;
+    }
+  }
+
+  &__comments {
+    @include detailContainerBP();
+  }
+}
+
+// Comment List Item Style
+
+@mixin btnReset {
+  padding: 1rem 5rem;
+  margin: 1rem;
+  background-color: $grey-50;
+  border: solid 1px $grey-900;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: all 0.2s ease;
+  }
+
+  @media only screen and (max-width: $bp-sm) {
+    width: 150px;
+    padding: 0.5rem 2rem;
+    margin: 0.2rem;
+  }
+}
+
+.commentListItem__container {
+  list-style-type: none;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: $grey-100;
+  border-radius: 10px;
+
+  @media only screen and (max-width: $bp-sm) {
+    margin: 0.5rem 0;
+  }
+
+  h5 {
+    color: $lightblue-400;
+  }
+  span {
+    color: $grey-400;
+  }
+
+  .like__icon {
+    color: $lightblue-600;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .vote__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    @media only screen and (max-width: $bp-sm) {
+      flex-direction: column;
+    }
+
+    .vote__up {
+      @include btnReset();
+      &:hover {
+        background-color: #a5d6a7;
+      }
+    }
+    .vote__down {
+      @include btnReset();
+      &:hover {
+        background-color: #ef9a9a;
+      }
+    }
   }
 }
