@@ -18,3 +18,8 @@ export const getArticleCommentbyId = async (articleId) => {
   const res = await baseApi.get(`/articles/${articleId}/comments`);
   return res.data.comments;
 };
+
+export const getUsers = async () => {
+  const res = await baseApi.get("/users");
+  return res.data.users;
+};
