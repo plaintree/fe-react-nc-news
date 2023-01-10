@@ -49,7 +49,7 @@ $lightblue-600: #039be5;
   flex-direction: column;
 }
 
-// Loading style
+// Overlay Loading style
 .overlay {
   background-color: #ffffff;
   display: flex;
@@ -351,7 +351,7 @@ $lightblue-600: #039be5;
   width: 87%;
   position: relative;
 
-  input {
+  textarea {
     width: 100%;
     outline: none;
     border: none;

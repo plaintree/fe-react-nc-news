@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import userContext from "../store/userContext";
-import SyncLoader from "react-spinners/SyncLoader";
+
+import UserListItem from "./UserListItem";
+import Overlay from "./Overlay";
 
 const UserList = () => {
   const { users, loginUser, setLoginUser, isLoading } = useContext(userContext);
@@ -8,22 +10,16 @@ const UserList = () => {
   return (
     <>
       {isLoading ? (
-        <div className="overlay">
-          <SyncLoader className="spinner" />
-        </div>
+        <Overlay />
       ) : (
         <>
           <section className="userList__container">
             {users.map((user) => (
-              <div
+              <UserListItem
                 key={user.username}
-                className="user__container"
-                onClick={() => setLoginUser(user.username)}
-              >
-                <h2>{user.name}</h2>
-                <p>Username: {user.username}</p>
-                <img src={user.avatar_url} alt={user.username} />
-              </div>
+                user={user}
+                setLoginUser={setLoginUser}
+              />
             ))}
           </section>
           {loginUser !== null && (

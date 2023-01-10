@@ -24,8 +24,8 @@ const CommentCreation = ({ setShowAddComment, setRefreshComment }) => {
   return (
     <>
       <form className="comment__form" onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <textarea
+          rows="1"
           name="commentInput"
           value={inputField}
           onChange={(e) => setInputField(e.target.value)}

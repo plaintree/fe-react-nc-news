@@ -5,11 +5,11 @@ import {
   getArticleCommentbyId,
   patchArticleVote,
 } from "../utils/api";
-import SyncLoader from "react-spinners/SyncLoader";
 import { AiOutlineLike } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
 import CommentListItem from "./CommentListItem";
 import CommentCreation from "./CommentCreation";
+import Overlay from "./Overlay";
 
 const ArticleDetail = () => {
   const [article, setArticle] = useState({});
@@ -58,9 +58,7 @@ const ArticleDetail = () => {
   return (
     <>
       {isLoading ? (
-        <div className="overlay">
-          <SyncLoader className="spinner" />
-        </div>
+        <Overlay />
       ) : (
         <section className="articleDetail__container">
           <div className="articleDetail__container__main">
