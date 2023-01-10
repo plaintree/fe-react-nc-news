@@ -29,3 +29,12 @@ export const patchArticleVote = async (articleId, vote) => {
   const res = await baseApi.patch(`/articles/${articleId}`, patchBody);
   return res.data.article;
 };
+
+export const postArticleComment = async (articleId, username, comment) => {
+  const postBody = {
+    username,
+    body: comment,
+  };
+  const res = await baseApi.post(`/articles/${articleId}/comments`, postBody);
+  return res.data.comment;
+};

@@ -9,12 +9,15 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { AiOutlineLike } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
 import CommentListItem from "./CommentListItem";
+import CommentCreation from "./CommentCreation";
 
 const ArticleDetail = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [showAddComment, setShowAddComment] = useState(false);
+  const [refreshComment, setRefreshComment] = useState(false);
   const [votes, setVotes] = useState(0);
   const [err, setErr] = useState(null);
   const { article_id } = useParams();
@@ -26,7 +29,10 @@ const ArticleDetail = () => {
       setVotes(art.votes);
       setIsLoading(false);
     });
-  }, []);
+    return () => {
+      setRefreshComment(false);
+    };
+  }, [refreshComment]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,7 +40,10 @@ const ArticleDetail = () => {
       setComments(comm);
       setIsLoading(false);
     });
-  }, []);
+    return () => {
+      setRefreshComment(false);
+    };
+  }, [refreshComment]);
 
   const handleVoteClick = (newVote) => {
     // optimistic rendering approach
@@ -91,6 +100,18 @@ const ArticleDetail = () => {
               ))}
             </ul>
           )}
+          {showAddComment && (
+            <CommentCreation
+              setShowAddComment={setShowAddComment}
+              setRefreshComment={setRefreshComment}
+            />
+          )}
+          <button
+            className="btn__showAddComment"
+            onClick={() => setShowAddComment((currState) => !currState)}
+          >
+            {showAddComment ? "Cancel" : "Post a Comment"}
+          </button>
         </section>
       )}
     </>
