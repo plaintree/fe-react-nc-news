@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticlebyId, getArticleCommentbyId } from "../utils/api";
+import {
+  getArticlebyId,
+  getArticleCommentbyId,
+  patchArticleVote,
+} from "../utils/api";
 import SyncLoader from "react-spinners/SyncLoader";
+import { AiOutlineLike } from "react-icons/ai";
+import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
 import CommentListItem from "./CommentListItem";
 
 const ArticleDetail = () => {
@@ -9,15 +15,19 @@ const ArticleDetail = () => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [votes, setVotes] = useState(0);
+  const [err, setErr] = useState(null);
   const { article_id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
     getArticlebyId(article_id).then((art) => {
       setArticle(art);
+      setVotes(art.votes);
       setIsLoading(false);
     });
   }, []);
+
   useEffect(() => {
     setIsLoading(true);
     getArticleCommentbyId(article_id).then((comm) => {
@@ -25,6 +35,17 @@ const ArticleDetail = () => {
       setIsLoading(false);
     });
   }, []);
+
+  const handleVoteClick = (newVote) => {
+    // optimistic rendering approach
+    setVotes((currVote) => currVote + newVote);
+    setErr(null);
+    patchArticleVote(article_id, newVote).catch(() => {
+      setVotes((currVote) => currVote - newVote);
+      setErr("Something went wrong, please try again.");
+    });
+  };
+
   return (
     <>
       {isLoading ? (
@@ -40,6 +61,9 @@ const ArticleDetail = () => {
               <span>(created at: {article.created_at})</span>
             </h3>
             <p>{article.body}</p>
+            <p>
+              <AiOutlineLike className="like__icon" /> {votes}
+            </p>
             <button
               className="toggle__comment__btn"
               onClick={() => setShowComments((currState) => !currState)}
@@ -47,6 +71,18 @@ const ArticleDetail = () => {
               {showComments ? "Hide" : "View"} all {article.comment_count}{" "}
               comments
             </button>
+            <div className="vote__container">
+              <button className="vote__up" onClick={() => handleVoteClick(1)}>
+                Vote Up <RxThickArrowUp color="#66bb6a" />
+              </button>
+              <button
+                className="vote__down"
+                onClick={() => handleVoteClick(-1)}
+              >
+                Vote Down <RxThickArrowDown color="#f44336" />
+              </button>
+            </div>
+            {err && <p>{err}</p>}
           </div>
           {showComments && (
             <ul className="articleDetail__container__comments">
