@@ -10,6 +10,38 @@ $lightblue-400: #29b6f6;
 $lightblue-500: #03a9f4;
 $lightblue-600: #039be5;
 
+// Global style
+@mixin btnReset {
+  padding: 1rem 5rem;
+  margin: 1rem;
+  background-color: $grey-50;
+  border: solid 1px $grey-900;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: all 0.2s ease;
+  }
+
+  @media only screen and (max-width: $bp-sm) {
+    width: 150px;
+    padding: 0.5rem 2rem;
+    margin: 0.2rem;
+  }
+}
+
+@mixin detailContainerBP {
+  border-radius: 10px;
+  border: $grey-900 solid 1px;
+  margin: 0.5rem 3rem;
+  padding: 1rem;
+
+  @media only screen and (max-width: $bp-sm) {
+    margin: 0.5rem 0;
+  }
+}
+
 // App style
 .app__container {
   flex: 1;
@@ -134,16 +166,6 @@ $lightblue-600: #039be5;
 }
 
 // Articles Detail Style
-@mixin detailContainerBP {
-  border-radius: 10px;
-  border: $grey-900 solid 1px;
-  margin: 0.5rem 3rem;
-  padding: 1rem;
-
-  @media only screen and (max-width: $bp-sm) {
-    margin: 0.5rem 0;
-  }
-}
 
 .articleDetail__container {
   display: flex;
@@ -166,6 +188,12 @@ $lightblue-600: #039be5;
       line-height: 1.5;
     }
 
+    .like__icon {
+      color: $lightblue-600;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     .toggle__comment__btn {
       background-color: #ffffff;
       border: none;
@@ -173,6 +201,28 @@ $lightblue-600: #039be5;
       cursor: pointer;
       color: $grey-600;
       padding: 0;
+    }
+
+    .vote__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      @media only screen and (max-width: $bp-sm) {
+        flex-direction: column;
+      }
+
+      .vote__up {
+        @include btnReset();
+        &:hover {
+          background-color: #a5d6a7;
+        }
+      }
+      .vote__down {
+        @include btnReset();
+        &:hover {
+          background-color: #ef9a9a;
+        }
+      }
     }
   }
 
@@ -182,26 +232,6 @@ $lightblue-600: #039be5;
 }
 
 // Comment List Item Style
-
-@mixin btnReset {
-  padding: 1rem 5rem;
-  margin: 1rem;
-  background-color: $grey-50;
-  border: solid 1px $grey-900;
-  border-radius: 10px;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    transition: all 0.2s ease;
-  }
-
-  @media only screen and (max-width: $bp-sm) {
-    width: 150px;
-    padding: 0.5rem 2rem;
-    margin: 0.2rem;
-  }
-}
 
 .commentListItem__container {
   list-style-type: none;
