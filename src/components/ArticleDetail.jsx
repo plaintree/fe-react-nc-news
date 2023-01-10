@@ -15,16 +15,19 @@ const ArticleDetail = () => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [votes, setVotes] = useState(article.votes);
+  const [votes, setVotes] = useState(0);
+  const [err, setErr] = useState(null);
   const { article_id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
     getArticlebyId(article_id).then((art) => {
       setArticle(art);
+      setVotes(art.votes);
       setIsLoading(false);
     });
-  }, [votes]);
+  }, []);
+
   useEffect(() => {
     setIsLoading(true);
     getArticleCommentbyId(article_id).then((comm) => {
@@ -34,7 +37,13 @@ const ArticleDetail = () => {
   }, []);
 
   const handleVoteClick = (newVote) => {
-    patchArticleVote(article_id, newVote).then((art) => setVotes(art.votes));
+    // optimistic rendering approach
+    setVotes((currVote) => currVote + newVote);
+    setErr(null);
+    patchArticleVote(article_id, newVote).catch(() => {
+      setVotes((currVote) => currVote - newVote);
+      setErr("Something went wrong, please try again.");
+    });
   };
 
   return (
@@ -53,7 +62,7 @@ const ArticleDetail = () => {
             </h3>
             <p>{article.body}</p>
             <p>
-              <AiOutlineLike className="like__icon" /> {article.votes}
+              <AiOutlineLike className="like__icon" /> {votes}
             </p>
             <button
               className="toggle__comment__btn"
@@ -73,6 +82,7 @@ const ArticleDetail = () => {
                 Vote Down <RxThickArrowDown color="#f44336" />
               </button>
             </div>
+            {err && <p>{err}</p>}
           </div>
           {showComments && (
             <ul className="articleDetail__container__comments">
