@@ -23,3 +23,9 @@ export const getUsers = async () => {
   const res = await baseApi.get("/users");
   return res.data.users;
 };
+
+export const patchArticleVote = async (articleId, vote) => {
+  const patchBody = { inc_votes: vote };
+  const res = await baseApi.patch(`/articles/${articleId}`, patchBody);
+  return res.data.article;
+};
