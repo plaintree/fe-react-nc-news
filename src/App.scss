@@ -457,7 +457,7 @@ $lightblue-600: #039be5;
 
     .share__link {
       width: 200px;
-      overflow: scroll;
+      overflow: auto;
 
       @media only screen and (max-width: $bp-sm) {
         width: 80%;

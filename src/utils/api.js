@@ -10,7 +10,7 @@ export const getArticles = async () => {
   return res.data.articles;
 };
 export const getArticlesWithTopic = async (tpc) => {
-  const res = await baseApi.get(`/articles?topic=${tpc}`);
+  const res = await baseApi.get("/articles", { params: { topic: tpc } });
   return res.data.articles;
 };
 
