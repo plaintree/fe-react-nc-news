@@ -7,7 +7,9 @@ const Home = () => {
         alt="dog-reading"
       />
       <h5>Click the links above to get access to different API</h5>
-      <h5>Go to the User page and select a user to create comments</h5>
+      <h5>
+        Go to the User page and select a user to create or delete comments
+      </h5>
     </section>
   );
 };

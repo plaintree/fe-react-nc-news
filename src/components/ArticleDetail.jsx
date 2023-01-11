@@ -94,7 +94,11 @@ const ArticleDetail = () => {
           {showComments && (
             <ul className="articleDetail__container__comments">
               {comments.map((comment) => (
-                <CommentListItem key={comment.comment_id} comment={comment} />
+                <CommentListItem
+                  key={comment.comment_id}
+                  comment={comment}
+                  setRefreshComment={setRefreshComment}
+                />
               ))}
             </ul>
           )}
