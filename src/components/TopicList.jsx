@@ -4,15 +4,18 @@ import { MdOutlineCancel } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getTopics, getArticlesWithTopic } from "../utils/api";
 import Overlay from "./Overlay";
+import SelectOptions from "./SelectOptions";
 import TopicListArticleItem from "./TopicListArticleItem";
 
 const TopicList = () => {
   const [topics, setTopics] = useState([]);
   const [topicArticles, setTopicArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const [showShareLink, setShowShareLink] = useState(false);
   const [slug, setSlug] = useState(null);
+  const [sortBy, setSortBy] = useState("date");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   const navigate = useNavigate();
 
@@ -24,9 +27,17 @@ const TopicList = () => {
     });
   }, []);
 
-  const handleTopicClick = (tpc) => {
-    getArticlesWithTopic(tpc).then((arts) => {
+  useEffect(() => {
+    if (isInitialRender) return;
+    getArticlesWithTopic(slug, sortBy, sortOrder).then((arts) => {
       setTopicArticles(arts);
+    });
+  }, [sortBy, sortOrder]);
+
+  const handleTopicClick = (tpc) => {
+    getArticlesWithTopic(tpc, sortBy, sortOrder).then((arts) => {
+      setTopicArticles(arts);
+      setIsInitialRender(false);
       setSlug(tpc);
       navigate(`/topics?slug=${tpc}`);
     });
@@ -71,13 +82,23 @@ const TopicList = () => {
             )}
           </ul>
           <div className="topicList__container__articles">
-            {topicArticles.length > 0 &&
-              topicArticles.map((article) => (
-                <TopicListArticleItem
-                  article={article}
-                  key={article.article_id}
-                />
-              ))}
+            {topicArticles.length > 0 && (
+              <SelectOptions
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              />
+            )}
+            <section className="article__list">
+              {topicArticles.length > 0 &&
+                topicArticles.map((article) => (
+                  <TopicListArticleItem
+                    article={article}
+                    key={article.article_id}
+                  />
+                ))}
+            </section>
           </div>
         </section>
       )}
