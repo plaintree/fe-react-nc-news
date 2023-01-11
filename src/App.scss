@@ -43,6 +43,13 @@ $lightblue-600: #039be5;
   }
 }
 
+@mixin selectOptionReset {
+  border: none;
+  margin: 1rem;
+  font-family: "Roboto Slab";
+  outline: none;
+}
+
 // App style
 .app__container {
   flex: 1;
@@ -135,6 +142,20 @@ $lightblue-600: #039be5;
 }
 
 // Articles List Style
+
+.select__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+
+  .select__sortBy {
+    @include selectOptionReset();
+  }
+  .select__sortOrder {
+    @include selectOptionReset();
+  }
+}
 .articles__container {
   display: flex;
   flex-wrap: wrap;
@@ -158,8 +179,14 @@ $lightblue-600: #039be5;
   padding: 0.5rem;
   list-style-type: none;
 
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: all 0.3s ease;
+  }
+
   @media only screen and (max-width: $bp-sm) {
-    height: 150px;
+    height: 200px;
     width: 250px;
   }
 
@@ -170,6 +197,20 @@ $lightblue-600: #039be5;
 
   h2 {
     font-size: 1rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+  h4 {
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  h6 {
+    margin: 0.5rem 0;
+    font-weight: 100;
+  }
+  p {
+    margin: 0.5rem 0;
   }
 }
 

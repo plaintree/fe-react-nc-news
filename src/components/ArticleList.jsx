@@ -25,9 +25,9 @@ const ArticleList = () => {
           <section className="select__container">
             <select
               className="select__sortBy"
-              value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
+              <option selected>Sort By</option>
               <option value="date">Date</option>
               <option value="author">Author</option>
               <option value="votes">Votes</option>
@@ -35,11 +35,11 @@ const ArticleList = () => {
             </select>
             <select
               className="select__sortOrder"
-              value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
-              <option value="desc">Descending Order</option>
-              <option value="asc">Ascending Order</option>
+              <option selected>Order</option>
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
             </select>
           </section>
           <ul className="articles__container">
