@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
+import userContext from "../store/userContext";
 const CommentListItem = ({ comment }) => {
+  const { loginUser } = useContext(userContext);
   return (
     <li className="commentListItem__container">
       <h4>{comment.body}</h4>

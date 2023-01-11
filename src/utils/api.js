@@ -40,6 +40,10 @@ export const postArticleComment = async (articleId, username, comment) => {
   return res.data.comment;
 };
 
+export const deleteArticleComment = async (commentId) => {
+  return await baseApi.delete(`/comments/${commentId}`);
+};
+
 // User API
 export const getUsers = async () => {
   const res = await baseApi.get("/users");
