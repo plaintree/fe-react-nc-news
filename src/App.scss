@@ -17,7 +17,7 @@ $red-800: #c62828;
 
 // Global style
 @mixin btnReset {
-  padding: 1rem 5rem;
+  padding: 1rem 4rem;
   margin: 1rem;
   background-color: $grey-50;
   border: solid 1px $grey-900;
@@ -342,6 +342,14 @@ $red-800: #c62828;
       &:hover {
         background-color: $red-800;
       }
+      &__cancel {
+        @include btnReset();
+        padding: 1rem 0.5rem;
+        background-color: $lightblue-100;
+        &:hover {
+          background-color: $lightblue-500;
+        }
+      }
     }
   }
 }
@@ -433,153 +441,140 @@ $red-800: #c62828;
 }
 
 // TopicList Style
+
+@keyframes changeOpacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .topicList__container {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin: 1rem 2rem;
+  margin: 3rem 2rem;
+  list-style-type: none;
+  padding: 0 2rem;
 
   @media only screen and (max-width: $bp-sm) {
-    flex-direction: column;
-    align-items: center;
-    margin: 0.5rem;
-  }
-
-  &__topics {
-    list-style-type: none;
-    padding: 0 2rem;
-    border-right: 1px solid $grey-900;
-    height: 100vh;
-
-    @media only screen and (max-width: $bp-sm) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-right: none;
-
-      height: 100%;
-      width: 100%;
-    }
-    .title {
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-align: center;
-    }
-
-    .topic__slug {
-      width: 200px;
-      padding: 1rem 0;
-      margin: 2rem 0;
-      text-align: center;
-      text-transform: capitalize;
-      background-color: $lightblue-100;
-      cursor: pointer;
-
-      &:hover {
-        transform: scale(1.1);
-        background-color: $lightblue-500;
-        color: #ffffff;
-        transition: all 0.5s ease;
-      }
-
-      @media only screen and (max-width: $bp-sm) {
-        width: 80%;
-        margin: 0.5rem 0;
-      }
-    }
-
-    .btn__share {
-      background-color: $grey-100;
-      width: 200px;
-      padding: 1rem 0;
-      margin: 2rem 0;
-      text-align: center;
-      cursor: pointer;
-
-      &:hover {
-        transform: scale(1.1);
-        background-color: $grey-600;
-        color: #ffffff;
-        transition: all 0.5s ease;
-      }
-
-      @media only screen and (max-width: $bp-sm) {
-        width: 80%;
-        margin: 0.5rem 0;
-      }
-    }
-
-    .share__link {
-      width: 200px;
-      overflow: auto;
-
-      @media only screen and (max-width: $bp-sm) {
-        width: 80%;
-        margin: 0.5rem 0;
-      }
-    }
-  }
-
-  &__articles {
-    padding: 0 2rem;
+    margin: 2rem 0;
+    padding: 0;
+    height: 100%;
     width: 100%;
+  }
 
-    .select__container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 2rem;
+  .title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+    animation: changeOpacity 1s;
+  }
 
-      .select__sortBy {
-        @include selectOptionReset();
-      }
-      .select__sortOrder {
-        @include selectOptionReset();
-      }
-    }
+  a {
+    display: block;
+    width: 200px;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: $grey-900;
+    background-color: $lightblue-100;
+    cursor: pointer;
+    animation: changeOpacity 4s;
 
-    .article__list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      @media only screen and (max-width: $bp-sm) {
-        flex-direction: column;
-        align-items: center;
-      }
+    &:hover {
+      transform: scale(1.1);
+      background-color: $lightblue-500;
+      color: #ffffff;
+      text-shadow: 1px 1px 10px #fff;
+      transition: all 0.5s ease;
     }
 
     @media only screen and (max-width: $bp-sm) {
-      flex-direction: column;
-      align-items: center;
+      width: 80%;
+      margin: 0.5rem 0;
     }
   }
 }
 
-// TopicListArticleItem Style
-.topicListArticleItem__container {
-  background-color: $grey-100;
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  overflow: hidden;
-  width: 200px;
-  height: 200px;
+// TopicArticleList style
+.topicArticleList__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @media only screen and (max-width: $bp-sm) {
-    width: 250px;
-    height: 150px;
-    padding: 1rem;
-  }
-  h1 {
-    font-size: 1rem;
-    font-weight: 600;
+  .btn__share {
+    background-color: $grey-100;
+    border: none;
+    width: 200px;
+    padding: 1rem 0;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: $grey-600;
+      color: #ffffff;
+      transition: all 0.5s ease;
+    }
+
+    @media only screen and (max-width: $bp-sm) {
+      width: 80%;
+      margin: 0.5rem 0;
+    }
   }
 
-  h3 {
-    font-size: 0.8rem;
+  .share__link {
+    overflow: auto;
+
+    @media only screen and (max-width: $bp-sm) {
+      width: 80%;
+      margin: 0.5rem 0;
+    }
   }
-  p {
-    font-size: 1rem;
+}
+
+// Error Page Style
+.error__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  height: 100vh;
+  margin: 2rem;
+
+  @keyframes movingCar {
+    0% {
+      left: 45%;
+    }
+    25% {
+      left: 90%;
+    }
+    50% {
+      left: 45%;
+    }
+    75% {
+      left: 0;
+    }
+    100% {
+      left: 45%;
+    }
+  }
+
+  .carMotion {
+    position: absolute;
+    top: 50%;
+    animation: movingCar 5s infinite;
+
+    @media only screen and (max-width: $bp-sm) {
+      top: 65%;
+    }
   }
 }

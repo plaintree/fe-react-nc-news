@@ -1,27 +1,33 @@
 import { useEffect, useState } from "react";
-import { getArticles } from "../utils/api";
+import { getArticles } from "../../utils/api";
 import ArticleListItem from "./ArticleListItem";
-import Overlay from "./Overlay";
-import SelectOptions from "./SelectOptions";
+import Overlay from "../layout/Overlay";
+import SelectOptions from "../layout/SelectOptions";
+import Error from "../Error";
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(sortBy, sortOrder).then((articles) => {
-      setArticles(articles);
-      setIsLoading(false);
-    });
+    getArticles(sortBy, sortOrder)
+      .then((articles) => {
+        setArticles(articles);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setErr(err.message);
+      });
   }, [sortBy, sortOrder]);
   return (
     <>
-      {isLoading ? (
-        <Overlay />
-      ) : (
+      {err && <Error />}
+      {isLoading && !err && <Overlay />}
+      {!isLoading && !err && (
         <>
           <SelectOptions
             sortBy={sortBy}

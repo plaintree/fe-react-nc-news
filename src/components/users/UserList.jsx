@@ -1,17 +1,19 @@
 import { useContext } from "react";
-import userContext from "../store/userContext";
+import userContext from "../../store/userContext";
 
 import UserListItem from "./UserListItem";
-import Overlay from "./Overlay";
+import Overlay from "../layout/Overlay";
+import Error from "../Error";
 
 const UserList = () => {
-  const { users, loginUser, setLoginUser, isLoading } = useContext(userContext);
+  const { users, loginUser, setLoginUser, isLoading, err } =
+    useContext(userContext);
 
   return (
     <>
-      {isLoading ? (
-        <Overlay />
-      ) : (
+      {err && <Error />}
+      {isLoading && !err && <Overlay />}
+      {!isLoading && !err && (
         <>
           <section className="userList__container">
             {users.map((user) => (

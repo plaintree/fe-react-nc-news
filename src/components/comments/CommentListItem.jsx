@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
+import moment from "moment";
 import { AiOutlineLike, AiOutlineDelete } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
-import { deleteArticleComment } from "../utils/api";
-import userContext from "../store/userContext";
+import { deleteArticleComment } from "../../utils/api";
+import userContext from "../../store/userContext";
 
 const CommentListItem = ({ comment, setRefreshComment }) => {
   const [isDisable, setIsDisable] = useState(false);
@@ -20,7 +21,11 @@ const CommentListItem = ({ comment, setRefreshComment }) => {
     <li className="commentListItem__container">
       <h4>{comment.body}</h4>
       <h5>
-        {comment.author} <span>(created at: {comment.created_at})</span>
+        {comment.author}{" "}
+        <span>
+          (created at:{" "}
+          {moment(comment.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a")})
+        </span>
       </h5>
       <p>
         <AiOutlineLike className="like__icon" /> {comment.votes}
@@ -35,13 +40,21 @@ const CommentListItem = ({ comment, setRefreshComment }) => {
         {loginUser === comment.author && (
           <>
             {showConfirmDelete ? (
-              <button
-                className="delete__comment"
-                onClick={() => handleDeleteClick(comment.comment_id)}
-                disabled={isDisable}
-              >
-                Confirm Delete <AiOutlineDelete color="#ffffff" />
-              </button>
+              <>
+                <button
+                  className="delete__comment"
+                  onClick={() => handleDeleteClick(comment.comment_id)}
+                  disabled={isDisable}
+                >
+                  Confirm Delete <AiOutlineDelete color="#ffffff" />
+                </button>
+                <button
+                  className="delete__comment__cancel"
+                  onClick={() => setShowConfirmDelete(false)}
+                >
+                  Cancel Delete
+                </button>
+              </>
             ) : (
               <button
                 className="delete__comment"

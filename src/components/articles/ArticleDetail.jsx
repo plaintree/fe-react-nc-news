@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 import {
   getArticlebyId,
   getArticleCommentbyId,
   patchArticleVote,
-} from "../utils/api";
+} from "../../utils/api";
 import { AiOutlineLike } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
-import CommentListItem from "./CommentListItem";
-import CommentCreation from "./CommentCreation";
-import Overlay from "./Overlay";
+import CommentListItem from "../comments/CommentListItem";
+import CommentCreation from "../comments/CommentCreation";
+import Overlay from "../layout/Overlay";
+import Error from "../Error";
 
 const ArticleDetail = () => {
   const [article, setArticle] = useState({});
@@ -24,11 +26,15 @@ const ArticleDetail = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticlebyId(article_id).then((art) => {
-      setArticle(art);
-      setVotes(art.votes);
-      setIsLoading(false);
-    });
+    getArticlebyId(article_id)
+      .then((art) => {
+        setArticle(art);
+        setVotes(art.votes);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setErr(err.message);
+      });
     return () => {
       setRefreshComment(false);
     };
@@ -36,10 +42,14 @@ const ArticleDetail = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticleCommentbyId(article_id).then((comm) => {
-      setComments(comm);
-      setIsLoading(false);
-    });
+    getArticleCommentbyId(article_id)
+      .then((comm) => {
+        setComments(comm);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setErr(err.message);
+      });
     return () => {
       setRefreshComment(false);
     };
@@ -57,15 +67,21 @@ const ArticleDetail = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Overlay />
-      ) : (
+      {err && <Error />}
+      {isLoading && !err && <Overlay />}
+      {!isLoading && !err && (
         <section className="articleDetail__container">
           <div className="articleDetail__container__main">
             <h1>{article.title}</h1>
             <h3>
               From {article.author}{" "}
-              <span>(created at: {article.created_at})</span>
+              <span>
+                (created at:{" "}
+                {moment(article.created_at).format(
+                  "dddd, MMMM Do YYYY, h:mm:ss a"
+                )}
+                )
+              </span>
             </h3>
             <p>{article.body}</p>
             <p>
