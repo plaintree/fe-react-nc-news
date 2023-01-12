@@ -10,6 +10,7 @@ import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
 import CommentListItem from "../comments/CommentListItem";
 import CommentCreation from "../comments/CommentCreation";
 import Overlay from "../layout/Overlay";
+import Error from "../Error";
 
 const ArticleDetail = () => {
   const [article, setArticle] = useState({});
@@ -24,11 +25,15 @@ const ArticleDetail = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticlebyId(article_id).then((art) => {
-      setArticle(art);
-      setVotes(art.votes);
-      setIsLoading(false);
-    });
+    getArticlebyId(article_id)
+      .then((art) => {
+        setArticle(art);
+        setVotes(art.votes);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setErr(err.message);
+      });
     return () => {
       setRefreshComment(false);
     };
@@ -36,10 +41,14 @@ const ArticleDetail = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticleCommentbyId(article_id).then((comm) => {
-      setComments(comm);
-      setIsLoading(false);
-    });
+    getArticleCommentbyId(article_id)
+      .then((comm) => {
+        setComments(comm);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setErr(err.message);
+      });
     return () => {
       setRefreshComment(false);
     };
@@ -57,9 +66,9 @@ const ArticleDetail = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Overlay />
-      ) : (
+      {err && <Error />}
+      {isLoading && !err && <Overlay />}
+      {!isLoading && !err && (
         <section className="articleDetail__container">
           <div className="articleDetail__container__main">
             <h1>{article.title}</h1>

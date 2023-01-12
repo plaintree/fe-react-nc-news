@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { AiOutlineLike, AiOutlineDelete } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
-import { deleteArticleComment } from "../utils/api";
-import userContext from "../store/userContext";
+import { deleteArticleComment } from "../../utils/api";
+import userContext from "../../store/userContext";
 
 const CommentListItem = ({ comment, setRefreshComment }) => {
   const [isDisable, setIsDisable] = useState(false);
@@ -35,13 +35,21 @@ const CommentListItem = ({ comment, setRefreshComment }) => {
         {loginUser === comment.author && (
           <>
             {showConfirmDelete ? (
-              <button
-                className="delete__comment"
-                onClick={() => handleDeleteClick(comment.comment_id)}
-                disabled={isDisable}
-              >
-                Confirm Delete <AiOutlineDelete color="#ffffff" />
-              </button>
+              <>
+                <button
+                  className="delete__comment"
+                  onClick={() => handleDeleteClick(comment.comment_id)}
+                  disabled={isDisable}
+                >
+                  Confirm Delete <AiOutlineDelete color="#ffffff" />
+                </button>
+                <button
+                  className="delete__comment__cancel"
+                  onClick={() => setShowConfirmDelete(false)}
+                >
+                  Cancel Delete
+                </button>
+              </>
             ) : (
               <button
                 className="delete__comment"

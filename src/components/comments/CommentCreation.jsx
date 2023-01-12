@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { useParams, redirect } from "react-router-dom";
-import { postArticleComment, getArticlebyId } from "../../utils/api";
+import { useParams } from "react-router-dom";
+import { postArticleComment } from "../../utils/api";
 import userContext from "../../store/userContext";
 
 const CommentCreation = ({ setShowAddComment, setRefreshComment }) => {
