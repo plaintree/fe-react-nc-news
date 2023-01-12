@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import ArticleList from "./components/ArticleList";
+import ArticleList from "./components/articles/ArticleList";
 import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import TopicList from "./components/TopicList";
-import UserList from "./components/UserList";
+import Navbar from "./components/layout/Navbar";
+import TopicList from "./components/topics/TopicList";
+import UserList from "./components/users/UserList";
 import "./App.scss";
-import ArticleDetail from "./components/ArticleDetail";
+import ArticleDetail from "./components/articles/ArticleDetail";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/articles/:article_id" element={<ArticleDetail />} />
         <Route path="/topics" element={<TopicList />} />
         <Route path="/users" element={<UserList />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import userContext from "../store/userContext";
+import userContext from "../../store/userContext";
 
 import UserListItem from "./UserListItem";
-import Overlay from "./Overlay";
+import Overlay from "../layout/Overlay";
 
 const UserList = () => {
   const { users, loginUser, setLoginUser, isLoading } = useContext(userContext);

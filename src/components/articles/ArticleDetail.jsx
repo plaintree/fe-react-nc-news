@@ -4,12 +4,12 @@ import {
   getArticlebyId,
   getArticleCommentbyId,
   patchArticleVote,
-} from "../utils/api";
+} from "../../utils/api";
 import { AiOutlineLike } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
-import CommentListItem from "./CommentListItem";
-import CommentCreation from "./CommentCreation";
-import Overlay from "./Overlay";
+import CommentListItem from "../comments/CommentListItem";
+import CommentCreation from "../comments/CommentCreation";
+import Overlay from "../layout/Overlay";
 
 const ArticleDetail = () => {
   const [article, setArticle] = useState({});

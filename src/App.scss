@@ -544,30 +544,37 @@ $lightblue-600: #039be5;
   }
 }
 
-// TopicListArticleItem Style
-.topicListArticleItem__container {
-  background-color: $grey-100;
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  overflow: hidden;
-  width: 200px;
-  height: 200px;
+// Error Page Style
+.error__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  height: 100vh;
+  margin: 2rem;
 
-  @media only screen and (max-width: $bp-sm) {
-    width: 250px;
-    height: 150px;
-    padding: 1rem;
-  }
-  h1 {
-    font-size: 1rem;
-    font-weight: 600;
+  @keyframes movingCar {
+    0% {
+      left: 45%;
+    }
+    25% {
+      left: 90%;
+    }
+    50% {
+      left: 45%;
+    }
+    75% {
+      left: 0;
+    }
+    100% {
+      left: 45%;
+    }
   }
 
-  h3 {
-    font-size: 0.8rem;
-  }
-  p {
-    font-size: 1rem;
+  .carMotion {
+    position: absolute;
+    top: 65%;
+    animation: movingCar 5s infinite;
   }
 }

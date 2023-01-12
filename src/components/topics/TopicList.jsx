@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { BsShareFill } from "react-icons/bs";
 import { MdOutlineCancel } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { getTopics, getArticlesWithTopic } from "../utils/api";
-import Overlay from "./Overlay";
-import SelectOptions from "./SelectOptions";
-import ArticleListItem from "./ArticleListItem";
+import { getTopics, getArticlesWithTopic } from "../../utils/api";
+import Overlay from "../layout/Overlay";
+import SelectOptions from "../layout/SelectOptions";
+import ArticleListItem from "../articles/ArticleListItem";
 
 const TopicList = () => {
   const [topics, setTopics] = useState([]);

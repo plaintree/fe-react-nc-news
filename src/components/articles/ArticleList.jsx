@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getArticles } from "../utils/api";
+import { getArticles } from "../../utils/api";
 import ArticleListItem from "./ArticleListItem";
-import Overlay from "./Overlay";
-import SelectOptions from "./SelectOptions";
+import Overlay from "../layout/Overlay";
+import SelectOptions from "../layout/SelectOptions";
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
