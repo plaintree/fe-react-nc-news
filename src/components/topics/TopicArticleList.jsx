@@ -56,7 +56,7 @@ const TopicArticleList = () => {
 
           {showShareLink && (
             <p className="share__link">
-              {`https://ncnews.netlify.app/topic/${slug}`}
+              {`https://plaintree-nc-news.netlify.app/topics/${slug}`}
             </p>
           )}
           <ul className="articles__container">
