@@ -7,7 +7,6 @@ import userContext from "../../store/userContext";
 
 const CommentListItem = ({
   comment,
-
   setRefreshComment,
   clickErr,
   setClickErr,

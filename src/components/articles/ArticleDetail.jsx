@@ -21,7 +21,6 @@ const ArticleDetail = () => {
   const [showAddComment, setShowAddComment] = useState(false);
   const [refreshComment, setRefreshComment] = useState(false);
   const [votes, setVotes] = useState(0);
-
   const [err, setErr] = useState(null);
   const [clickErr, setClickErr] = useState(null);
   const { article_id } = useParams();
@@ -47,7 +46,6 @@ const ArticleDetail = () => {
     getArticleCommentbyId(article_id)
       .then((comm) => {
         setComments(comm);
-
         setIsLoading(false);
       })
       .catch((err) => {
