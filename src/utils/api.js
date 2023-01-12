@@ -4,13 +4,16 @@ const baseApi = axios.create({
   baseURL: "https://nc-news-project-lo9x.onrender.com/api",
 });
 
-// Article API
-export const getArticles = async () => {
-  const res = await baseApi.get("/articles");
+export const getArticles = async (sortBy, order) => {
+  const res = await baseApi.get("/articles", {
+    params: { sort_by: sortBy, order: order },
+  });
   return res.data.articles;
 };
-export const getArticlesWithTopic = async (tpc) => {
-  const res = await baseApi.get("/articles", { params: { topic: tpc } });
+export const getArticlesWithTopic = async (tpc, sortBy, order) => {
+  const res = await baseApi.get("/articles", {
+    params: { topic: tpc, sort_by: sortBy, order: order },
+  });
   return res.data.articles;
 };
 
