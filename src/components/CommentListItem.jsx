@@ -6,6 +6,7 @@ import userContext from "../store/userContext";
 
 const CommentListItem = ({ comment, setRefreshComment }) => {
   const [isDisable, setIsDisable] = useState(false);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const { loginUser } = useContext(userContext);
 
   const handleDeleteClick = (id) => {
@@ -32,13 +33,24 @@ const CommentListItem = ({ comment, setRefreshComment }) => {
           Vote Down <RxThickArrowDown color="#f44336" />
         </button>
         {loginUser === comment.author && (
-          <button
-            className="delete__comment"
-            onClick={() => handleDeleteClick(comment.comment_id)}
-            disabled={isDisable}
-          >
-            Delete <AiOutlineDelete color="#ffffff" />
-          </button>
+          <>
+            {showConfirmDelete ? (
+              <button
+                className="delete__comment"
+                onClick={() => handleDeleteClick(comment.comment_id)}
+                disabled={isDisable}
+              >
+                Confirm Delete <AiOutlineDelete color="#ffffff" />
+              </button>
+            ) : (
+              <button
+                className="delete__comment"
+                onClick={() => setShowConfirmDelete(true)}
+              >
+                Delete <AiOutlineDelete color="#ffffff" />
+              </button>
+            )}
+          </>
         )}
       </div>
     </li>
