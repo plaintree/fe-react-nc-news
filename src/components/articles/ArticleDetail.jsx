@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 import {
   getArticlebyId,
   getArticleCommentbyId,
@@ -74,7 +75,13 @@ const ArticleDetail = () => {
             <h1>{article.title}</h1>
             <h3>
               From {article.author}{" "}
-              <span>(created at: {article.created_at})</span>
+              <span>
+                (created at:{" "}
+                {moment(article.created_at).format(
+                  "dddd, MMMM Do YYYY, h:mm:ss a"
+                )}
+                )
+              </span>
             </h3>
             <p>{article.body}</p>
             <p>
