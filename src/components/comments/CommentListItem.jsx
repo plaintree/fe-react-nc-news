@@ -1,20 +1,39 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import moment from "moment";
 import { AiOutlineLike, AiOutlineDelete } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
-import { deleteArticleComment } from "../../utils/api";
+import { deleteArticleComment, patchCommentVote } from "../../utils/api";
 import userContext from "../../store/userContext";
 
-const CommentListItem = ({ comment, setRefreshComment }) => {
+const CommentListItem = ({
+  comment,
+  setRefreshComment,
+  clickErr,
+  setClickErr,
+}) => {
   const [isDisable, setIsDisable] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [commentVotes, setCommentVotes] = useState(0);
   const { loginUser } = useContext(userContext);
+
+  useEffect(() => {
+    setCommentVotes(comment.votes);
+  }, []);
 
   const handleDeleteClick = (id) => {
     setIsDisable(true);
     deleteArticleComment(id).then(() => {
       setIsDisable(false);
       setRefreshComment(true);
+    });
+  };
+
+  const handleVoteClick = (commentId, newVote) => {
+    // optimistic rendering approach
+    setCommentVotes((currVote) => currVote + newVote);
+    patchCommentVote(commentId, newVote).catch(() => {
+      setCommentVotes((currVote) => currVote - newVote);
+      setClickErr("Something went wrong, please try again.");
     });
   };
   return (
@@ -28,13 +47,19 @@ const CommentListItem = ({ comment, setRefreshComment }) => {
         </span>
       </h5>
       <p>
-        <AiOutlineLike className="like__icon" /> {comment.votes}
+        <AiOutlineLike className="like__icon" /> {commentVotes}
       </p>
       <div className="btn__container">
-        <button className="vote__up">
+        <button
+          className="vote__up"
+          onClick={() => handleVoteClick(comment.comment_id, 1)}
+        >
           Vote Up <RxThickArrowUp color="#66bb6a" />
         </button>
-        <button className="vote__down">
+        <button
+          className="vote__down"
+          onClick={() => handleVoteClick(comment.comment_id, -1)}
+        >
           Vote Down <RxThickArrowDown color="#f44336" />
         </button>
         {loginUser === comment.author && (
@@ -66,6 +91,7 @@ const CommentListItem = ({ comment, setRefreshComment }) => {
           </>
         )}
       </div>
+      {clickErr && <p>{clickErr}</p>}
     </li>
   );
 };

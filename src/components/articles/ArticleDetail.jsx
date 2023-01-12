@@ -22,6 +22,7 @@ const ArticleDetail = () => {
   const [refreshComment, setRefreshComment] = useState(false);
   const [votes, setVotes] = useState(0);
   const [err, setErr] = useState(null);
+  const [clickErr, setClickErr] = useState(null);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -58,10 +59,9 @@ const ArticleDetail = () => {
   const handleVoteClick = (newVote) => {
     // optimistic rendering approach
     setVotes((currVote) => currVote + newVote);
-    setErr(null);
     patchArticleVote(article_id, newVote).catch(() => {
       setVotes((currVote) => currVote - newVote);
-      setErr("Something went wrong, please try again.");
+      setClickErr("Something went wrong, please try again.");
     });
   };
 
@@ -105,17 +105,21 @@ const ArticleDetail = () => {
                 Vote Down <RxThickArrowDown color="#f44336" />
               </button>
             </div>
-            {err && <p>{err}</p>}
+            {clickErr && <p>{clickErr}</p>}
           </div>
           {showComments && (
             <ul className="articleDetail__container__comments">
-              {comments.map((comment) => (
-                <CommentListItem
-                  key={comment.comment_id}
-                  comment={comment}
-                  setRefreshComment={setRefreshComment}
-                />
-              ))}
+              {comments.map((comment) => {
+                return (
+                  <CommentListItem
+                    key={comment.comment_id}
+                    comment={comment}
+                    setRefreshComment={setRefreshComment}
+                    clickErr={clickErr}
+                    setClickErr={setClickErr}
+                  />
+                );
+              })}
             </ul>
           )}
           {showAddComment && (

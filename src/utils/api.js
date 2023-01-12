@@ -47,6 +47,12 @@ export const deleteArticleComment = async (commentId) => {
   return await baseApi.delete(`/comments/${commentId}`);
 };
 
+export const patchCommentVote = async (commentId, vote) => {
+  const patchBody = { inc_votes: vote };
+  const res = await baseApi.patch(`/comments/${commentId}`, patchBody);
+  return res.data.article;
+};
+
 // User API
 export const getUsers = async () => {
   const res = await baseApi.get("/users");
