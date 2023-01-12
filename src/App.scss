@@ -10,6 +10,10 @@ $lightblue-100: #b3e5fc;
 $lightblue-400: #29b6f6;
 $lightblue-500: #03a9f4;
 $lightblue-600: #039be5;
+$red-200: #ef9a9a;
+$red-400: #ef5350;
+$red-500: #f44336;
+$red-800: #c62828;
 
 // Global style
 @mixin btnReset {
@@ -270,7 +274,7 @@ $lightblue-600: #039be5;
       .vote__down {
         @include btnReset();
         &:hover {
-          background-color: #ef9a9a;
+          background-color: $red-200;
         }
       }
     }
@@ -311,7 +315,7 @@ $lightblue-600: #039be5;
     cursor: pointer;
   }
 
-  .vote__container {
+  .btn__container {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -328,7 +332,15 @@ $lightblue-600: #039be5;
     .vote__down {
       @include btnReset();
       &:hover {
-        background-color: #ef9a9a;
+        background-color: $red-200;
+      }
+    }
+    .delete__comment {
+      @include btnReset();
+      color: #ffffff;
+      background-color: $red-500;
+      &:hover {
+        background-color: $red-800;
       }
     }
   }
