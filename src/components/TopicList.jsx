@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getTopics, getArticlesWithTopic } from "../utils/api";
 import Overlay from "./Overlay";
 import SelectOptions from "./SelectOptions";
-import TopicListArticleItem from "./TopicListArticleItem";
+import ArticleListItem from "./ArticleListItem";
 
 const TopicList = () => {
   const [topics, setTopics] = useState([]);
@@ -93,10 +93,7 @@ const TopicList = () => {
             <section className="article__list">
               {topicArticles.length > 0 &&
                 topicArticles.map((article) => (
-                  <TopicListArticleItem
-                    article={article}
-                    key={article.article_id}
-                  />
+                  <ArticleListItem article={article} key={article.article_id} />
                 ))}
             </section>
           </div>

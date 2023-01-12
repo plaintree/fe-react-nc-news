@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 
 const ArticleListItem = ({ article }) => {
   return (
@@ -9,7 +9,8 @@ const ArticleListItem = ({ article }) => {
       <h4>Topic: {article.topic}</h4>
       <h6>By: {article.author}</h6>
       <p>
-        <AiOutlineLike /> {article.votes}
+        <AiOutlineLike color="#03a9f4" />
+        {article.votes} <AiOutlineComment /> {article.comment_count}
       </p>
 
       <Link to={`/articles/${article.article_id}`}>
