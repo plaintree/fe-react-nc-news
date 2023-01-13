@@ -55,6 +55,14 @@ $red-800: #c62828;
   cursor: pointer;
 }
 
+@keyframes changeOpacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 // App style
 .app__container {
   flex: 1;
@@ -103,10 +111,10 @@ $red-800: #c62828;
   align-items: center;
   padding: 0 2rem;
   background-color: $grey-100;
+  justify-content: space-between;
 
   @media only screen and (max-width: $bp-sm) {
-    flex-direction: column;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
   }
 
   &__logo {
@@ -127,6 +135,8 @@ $red-800: #c62828;
   }
 
   &__links {
+    display: flex;
+    align-items: center;
     margin-left: auto;
     a {
       text-decoration: none;
@@ -138,14 +148,97 @@ $red-800: #c62828;
       }
     }
     @media only screen and (max-width: $bp-sm) {
-      margin-left: unset;
-      a {
-        font-size: 1rem;
+      display: none;
+    }
+
+    .user__profile {
+      display: flex;
+      align-items: center;
+      margin: 0 1rem;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin: 0 0.2rem;
       }
+      p {
+        font-size: 1rem;
+        color: $lightblue-400;
+      }
+    }
+  }
+
+  .mobile__menu {
+    display: none;
+    @media only screen and (max-width: $bp-sm) {
+      display: block;
+      padding: 0.5rem;
     }
   }
 }
 
+.nav__mobile {
+  display: none;
+  @media only screen and (max-width: $bp-sm) {
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        left: -100%;
+      }
+      to {
+        opacity: 1;
+        left: 0;
+      }
+    }
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #000000cc;
+    animation: fadeIn 1s;
+    z-index: 5;
+
+    a {
+      display: block;
+      text-decoration: none;
+      text-align: center;
+      color: $grey-100;
+      margin: 1rem 0;
+      padding: 0.5rem;
+
+      &:hover {
+        text-decoration: underline;
+        transition: all 0.3s ease;
+      }
+    }
+
+    h6 {
+      color: #ffffff;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding: 1rem 0.5rem;
+      border-top: 1px solid #ffffff;
+    }
+
+    .user__profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0.2rem;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin: 0 0.2rem;
+      }
+      p {
+        font-size: 1rem;
+        color: $lightblue-100;
+      }
+    }
+  }
+}
 // Articles List Style
 
 .select__container {
@@ -245,7 +338,6 @@ $red-800: #c62828;
     .like__icon {
       color: $lightblue-600;
       font-size: 1.5rem;
-      cursor: pointer;
     }
 
     .toggle__comment__btn {
@@ -312,7 +404,6 @@ $red-800: #c62828;
   .like__icon {
     color: $lightblue-600;
     font-size: 1.5rem;
-    cursor: pointer;
   }
 
   .btn__container {
@@ -411,7 +502,7 @@ $red-800: #c62828;
 // CommentCreation Style
 .comment__form {
   @include detailContainerBP();
-  width: 87%;
+  width: 89%;
   position: relative;
 
   textarea {
@@ -441,15 +532,6 @@ $red-800: #c62828;
 }
 
 // TopicList Style
-
-@keyframes changeOpacity {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 .topicList__container {
   display: flex;
@@ -532,6 +614,8 @@ $red-800: #c62828;
 
   .share__link {
     overflow: auto;
+    text-align: center;
+    animation: changeOpacity 0.5s;
 
     @media only screen and (max-width: $bp-sm) {
       width: 80%;

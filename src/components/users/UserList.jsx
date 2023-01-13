@@ -27,7 +27,7 @@ const UserList = () => {
           {loginUser !== null && (
             <section className="userList__logout">
               <h2>
-                Welcome back! <span>{loginUser}</span>
+                Welcome back! <span>{loginUser?.username}</span>
               </h2>
               <button onClick={() => setLoginUser(null)}>Log Out</button>
             </section>

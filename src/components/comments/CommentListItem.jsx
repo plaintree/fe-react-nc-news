@@ -1,5 +1,6 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import moment from "moment";
+import debounce from "lodash/debounce";
 import { AiOutlineLike, AiOutlineDelete } from "react-icons/ai";
 import { RxThickArrowUp, RxThickArrowDown } from "react-icons/rx";
 import { deleteArticleComment, patchCommentVote } from "../../utils/api";
@@ -18,6 +19,10 @@ const CommentListItem = ({
 
   useEffect(() => {
     setCommentVotes(comment.votes);
+
+    return () => {
+      debounceVoteClick.cancel();
+    };
   }, []);
 
   const handleDeleteClick = (id) => {
@@ -36,6 +41,11 @@ const CommentListItem = ({
       setClickErr("Something went wrong, please try again.");
     });
   };
+
+  const debounceVoteClick = useCallback(
+    debounce((id, newVote) => handleVoteClick(id, newVote), 300),
+    [commentVotes]
+  );
   return (
     <li className="commentListItem__container">
       <h4>{comment.body}</h4>
@@ -52,17 +62,17 @@ const CommentListItem = ({
       <div className="btn__container">
         <button
           className="vote__up"
-          onClick={() => handleVoteClick(comment.comment_id, 1)}
+          onClick={() => debounceVoteClick(comment.comment_id, 1)}
         >
           Vote Up <RxThickArrowUp color="#66bb6a" />
         </button>
         <button
           className="vote__down"
-          onClick={() => handleVoteClick(comment.comment_id, -1)}
+          onClick={() => debounceVoteClick(comment.comment_id, -1)}
         >
           Vote Down <RxThickArrowDown color="#f44336" />
         </button>
-        {loginUser === comment.author && (
+        {loginUser?.username === comment.author && (
           <>
             {showConfirmDelete ? (
               <>
@@ -71,7 +81,7 @@ const CommentListItem = ({
                   onClick={() => handleDeleteClick(comment.comment_id)}
                   disabled={isDisable}
                 >
-                  Confirm Delete <AiOutlineDelete color="#ffffff" />
+                  Confirm <AiOutlineDelete color="#ffffff" />
                 </button>
                 <button
                   className="delete__comment__cancel"

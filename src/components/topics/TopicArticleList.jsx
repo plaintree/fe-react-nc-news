@@ -41,7 +41,11 @@ const TopicArticleList = () => {
 
           <button
             className="btn__share"
-            onClick={() => setShowShareLink((curr) => !curr)}
+            onClick={() => {
+              navigator.clipboard
+                .writeText(window.location.href)
+                .then(() => setShowShareLink((curr) => !curr));
+            }}
           >
             {showShareLink ? (
               <>
@@ -55,9 +59,7 @@ const TopicArticleList = () => {
           </button>
 
           {showShareLink && (
-            <p className="share__link">
-              {`https://plaintree-nc-news.netlify.app/topics/${slug}`}
-            </p>
+            <p className="share__link">Link copied to Clipboard</p>
           )}
           <ul className="articles__container">
             {articles.map((article) => (
