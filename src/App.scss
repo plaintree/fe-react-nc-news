@@ -135,6 +135,8 @@ $red-800: #c62828;
   }
 
   &__links {
+    display: flex;
+    align-items: center;
     margin-left: auto;
     a {
       text-decoration: none;
@@ -148,57 +150,93 @@ $red-800: #c62828;
     @media only screen and (max-width: $bp-sm) {
       display: none;
     }
+
+    .user__profile {
+      display: flex;
+      align-items: center;
+      margin: 0 1rem;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin: 0 0.2rem;
+      }
+      p {
+        font-size: 1rem;
+        color: $lightblue-400;
+      }
+    }
   }
 
   .mobile__menu {
     display: none;
     @media only screen and (max-width: $bp-sm) {
       display: block;
-
       padding: 0.5rem;
     }
   }
 }
 
 .nav__mobile {
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      left: -100%;
+  display: none;
+  @media only screen and (max-width: $bp-sm) {
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        left: -100%;
+      }
+      to {
+        opacity: 1;
+        left: 0;
+      }
     }
-    to {
-      opacity: 1;
-      left: 0;
-    }
-  }
-  position: absolute;
-  top: 0;
-  width: 200px;
-  height: 100%;
-  background-color: #000000cc;
-  animation: fadeIn 1s;
-  z-index: 5;
-
-  a {
     display: block;
-    text-decoration: none;
-    text-align: center;
-    color: $grey-100;
-    margin: 1rem 0;
-    padding: 0.5rem;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #000000cc;
+    animation: fadeIn 1s;
+    z-index: 5;
 
-    &:hover {
-      text-decoration: underline;
-      transition: all 0.3s ease;
+    a {
+      display: block;
+      text-decoration: none;
+      text-align: center;
+      color: $grey-100;
+      margin: 1rem 0;
+      padding: 0.5rem;
+
+      &:hover {
+        text-decoration: underline;
+        transition: all 0.3s ease;
+      }
     }
-  }
 
-  p {
-    color: #ffffff;
-    font-size: 0.8rem;
-    margin-top: 2rem;
-    padding: 1rem 0.5rem;
-    border-top: 1px solid #ffffff;
+    h6 {
+      color: #ffffff;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding: 1rem 0.5rem;
+      border-top: 1px solid #ffffff;
+    }
+
+    .user__profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0.2rem;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin: 0 0.2rem;
+      }
+      p {
+        font-size: 1rem;
+        color: $lightblue-100;
+      }
+    }
   }
 }
 // Articles List Style

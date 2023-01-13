@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import debounce from "lodash/debounce";
@@ -68,9 +68,9 @@ const ArticleDetail = () => {
     });
   };
 
-  const debounceVoteClick = debounce(
-    (newVote) => handleVoteClick(newVote),
-    300
+  const debounceVoteClick = useCallback(
+    debounce((newVote) => handleVoteClick(newVote), 300),
+    [votes]
   );
 
   return (

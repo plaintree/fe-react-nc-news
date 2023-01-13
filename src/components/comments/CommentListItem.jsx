@@ -42,9 +42,9 @@ const CommentListItem = ({
     });
   };
 
-  const debounceVoteClick = debounce(
-    (id, newVote) => handleVoteClick(id, newVote),
-    300
+  const debounceVoteClick = useCallback(
+    debounce((id, newVote) => handleVoteClick(id, newVote), 300),
+    [commentVotes]
   );
   return (
     <li className="commentListItem__container">
@@ -72,7 +72,7 @@ const CommentListItem = ({
         >
           Vote Down <RxThickArrowDown color="#f44336" />
         </button>
-        {loginUser === comment.author && (
+        {loginUser?.username === comment.author && (
           <>
             {showConfirmDelete ? (
               <>
@@ -81,13 +81,13 @@ const CommentListItem = ({
                   onClick={() => handleDeleteClick(comment.comment_id)}
                   disabled={isDisable}
                 >
-                  Confirm Delete <AiOutlineDelete color="#ffffff" />
+                  Confirm <AiOutlineDelete color="#ffffff" />
                 </button>
                 <button
                   className="delete__comment__cancel"
                   onClick={() => setShowConfirmDelete(false)}
                 >
-                  Cancel
+                  Cancel Delete
                 </button>
               </>
             ) : (

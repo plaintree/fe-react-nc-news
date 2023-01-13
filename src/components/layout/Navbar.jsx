@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu } from "react-icons/hi";
 import { ImCross } from "react-icons/im";
+import userContext from "../../store/userContext";
 import logo from "../../assets/nc-logo.png";
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const { loginUser } = useContext(userContext);
 
   return (
     <>
@@ -15,6 +17,12 @@ const Navbar = () => {
         </header>
 
         <nav className="nav__container__links">
+          {loginUser && (
+            <div className="user__profile">
+              <img src={loginUser?.avatar_url} />
+              <p>{loginUser?.username}</p>
+            </div>
+          )}
           <Link to="/">Home</Link>
           <Link to="/articles">Articles</Link>
           <Link to="/topics">Topics</Link>
@@ -32,6 +40,12 @@ const Navbar = () => {
       </div>
       {showMenu && (
         <nav className="nav__mobile">
+          {loginUser && (
+            <div className="user__profile">
+              <img src={loginUser?.avatar_url} />
+              <p>{loginUser?.username}</p>
+            </div>
+          )}
           <Link to="/" onClick={() => setShowMenu(false)}>
             Home
           </Link>
@@ -44,7 +58,7 @@ const Navbar = () => {
           <Link to="/users" onClick={() => setShowMenu(false)}>
             Users
           </Link>
-          <p>&copy; Plaintree Production. All right reserved.</p>
+          <h6>&copy; Plaintree Production. All right reserved.</h6>
         </nav>
       )}
     </>

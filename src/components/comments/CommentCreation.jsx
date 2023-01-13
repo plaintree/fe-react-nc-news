@@ -15,9 +15,11 @@ const CommentCreation = ({ setShowAddComment, setRefreshComment }) => {
       setError("Please go to the user page and select a username first");
     } else {
       setShowAddComment(false);
-      postArticleComment(article_id, loginUser, inputField.trim()).then(() =>
-        setRefreshComment(true)
-      );
+      postArticleComment(
+        article_id,
+        loginUser.username,
+        inputField.trim()
+      ).then(() => setRefreshComment(true));
     }
   };
 
