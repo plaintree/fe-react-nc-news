@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import debounce from "lodash/debounce";
 import {
   getArticlebyId,
   getArticleCommentbyId,
@@ -38,6 +39,7 @@ const ArticleDetail = () => {
       });
     return () => {
       setRefreshComment(false);
+      debounceVoteClick.cancel();
     };
   }, [refreshComment]);
 
@@ -53,6 +55,7 @@ const ArticleDetail = () => {
       });
     return () => {
       setRefreshComment(false);
+      debounceVoteClick.cancel();
     };
   }, [refreshComment]);
 
@@ -64,6 +67,11 @@ const ArticleDetail = () => {
       setClickErr("Something went wrong, please try again.");
     });
   };
+
+  const debounceVoteClick = debounce(
+    (newVote) => handleVoteClick(newVote),
+    300
+  );
 
   return (
     <>
@@ -95,12 +103,12 @@ const ArticleDetail = () => {
               comments
             </button>
             <div className="vote__container">
-              <button className="vote__up" onClick={() => handleVoteClick(1)}>
+              <button className="vote__up" onClick={() => debounceVoteClick(1)}>
                 Vote Up <RxThickArrowUp color="#66bb6a" />
               </button>
               <button
                 className="vote__down"
-                onClick={() => handleVoteClick(-1)}
+                onClick={() => debounceVoteClick(-1)}
               >
                 Vote Down <RxThickArrowDown color="#f44336" />
               </button>

@@ -245,7 +245,6 @@ $red-800: #c62828;
     .like__icon {
       color: $lightblue-600;
       font-size: 1.5rem;
-      cursor: pointer;
     }
 
     .toggle__comment__btn {
@@ -312,7 +311,6 @@ $red-800: #c62828;
   .like__icon {
     color: $lightblue-600;
     font-size: 1.5rem;
-    cursor: pointer;
   }
 
   .btn__container {
@@ -411,7 +409,7 @@ $red-800: #c62828;
 // CommentCreation Style
 .comment__form {
   @include detailContainerBP();
-  width: 87%;
+  width: 89%;
   position: relative;
 
   textarea {
