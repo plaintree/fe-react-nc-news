@@ -27,10 +27,12 @@ const CommentListItem = ({
 
   const handleDeleteClick = (id) => {
     setIsDisable(true);
-    deleteArticleComment(id).then(() => {
-      setIsDisable(false);
-      setRefreshComment(true);
-    });
+    deleteArticleComment(id)
+      .then(() => {
+        setIsDisable(false);
+        setRefreshComment(true);
+      })
+      .catch(() => setClickErr("Something went wrong, please try again."));
   };
 
   const handleVoteClick = (commentId, newVote) => {
@@ -101,7 +103,7 @@ const CommentListItem = ({
           </>
         )}
       </div>
-      {clickErr && <p>{clickErr}</p>}
+      {clickErr && <p className="errorMsg">{clickErr}</p>}
     </li>
   );
 };
